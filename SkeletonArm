@@ -1,0 +1,13 @@
+public float timeTilTransform;
+public GameObject skeleton;
+public GameObject spawnPos;
+public ToolDurability TD;
+
+public void Awake()
+{}
+
+
+IENumberator turnIntoSkeleton()
+{
+  yeild return new WaitForSeconds(timeTilTransform);
+  TD.
