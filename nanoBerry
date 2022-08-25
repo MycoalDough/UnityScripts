@@ -1,0 +1,31 @@
+public float time;
+public float timeTilReady;
+public bool canEat;
+public PlayerHealth plrHP;
+
+public GameObject berry;
+
+
+
+
+void Update()
+{
+  if(time < timeTilReady)
+  {
+    time = time + Time.DeltaTime;
+    canEat = false;
+  }
+  else if(time > timeTilReady)
+  {
+    canEat = true;
+    berry.setActive(true);
+  }
+  
+  if(Input.GetKeyDown(KeyCode.E) && canEat)
+  {
+    canEat = false;
+    time = 0f;
+    plrHP.Heal(30);
+    berry.setActive(false);
+  }
+}
