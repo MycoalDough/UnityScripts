@@ -1,0 +1,30 @@
+//testing lol
+
+
+public Player player;
+public Rigidbody2D rb;
+public gameObject spriteOpen;
+public gameObject spriteClose;
+
+void Start()
+{
+  rb = gameObject.getComponent<Rigidbody2D>();
+}
+
+void Update()
+{
+  if(player.isGrounded)
+  {
+    rb.gravityScale = 1f;
+    spriteOpen.setActive(false);
+    spriteClose.setActive(true);
+    rb.verticalDrag = 0f;
+  }
+  else if(!player.isGrounded)
+  {
+        rb.gravityScale = -5f;
+    spriteOpen.setActive(true);
+    spriteClose.setActive(false);
+    rb.verticalDrag = 2f;
+  }
+}
