@@ -1,0 +1,94 @@
+//fireplace
+
+public bool destroyAfterTime;
+public float destroyAfterThisTime;
+
+public bool lit;
+public GameObject fireParticle;
+public PlayerHealth ph;
+
+public CurrencyManager cm;
+public GameObject openText;
+public bool bought;
+
+public bool healCD = false;
+public void Update()
+{
+  if(destroyAfterTime && lit)
+  {
+    StartCourintine(destroyAT());
+    destroyAfterTime = false;
+  }
+}
+
+
+public void onTriggerEnter2D(Collider collision)
+{
+  if(!lit && !bought)
+  {
+    openText.SetActive(true);
+    
+    if(Input.GetKeyDown(KeyCode.B))
+    {
+      if(cm.Coins >= 16)
+      {
+        cm.Coins = cm.Coins - 16;
+        lit = true;
+        bought = true;
+        openText.SetActive(false);
+      }
+    }
+  }
+}
+
+public void onTriggerExit2D(Collider collision)
+{
+  openText.SetActive(false);
+}
+
+public void onTriggerStay2D(Collider collsion)
+{
+  if(lit)
+  {
+    if(healCD == false)
+    {
+      StartCourintine(heal(0.1f))
+    }
+  }
+}
+
+
+IENumerator heal(float time)
+{
+  healCD = true;
+  yeild return new WaitForSeconds(time);
+  ph.Heal(1);
+  healCD = false;
+
+}
+
+IENumerator destroyAT()
+{
+  yeild return new WaitForSeconds(destroyAfterThisTime);
+  Destroy(gameObject);
+}
+
+
+
+//summon Fortress
+
+public GameObject wall;
+public GameObject campFire;
+public GameObject wallTurret;
+
+void Update()
+{
+  if(Input.GetMouse0ButtonDown)
+  {
+    if(gameObject.GetComponent<ToolDurability>().uses > 0)
+    {
+      gameObject.GetComponent<ToolDurability>().uses = 0;
+      Instantiate(wall, transform.position, Quarternion.Identity)
+    }
+  }
+}
