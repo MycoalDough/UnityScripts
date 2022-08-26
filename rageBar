@@ -1,0 +1,55 @@
+Public int rage;
+public float canRage;
+public float maxRage = 100f;
+
+public PlayerHealh ph;
+
+
+public void IncreaseRage(int damage)
+{
+if(!canRage)
+{
+  rage = rage + damage;
+  //increase a fill sprite bar
+}
+
+}
+
+
+public void Update()
+{
+  if(rage >= maxRage)
+  {
+  canRage = true;
+  }
+  else
+  {
+  canRage = false;
+  }
+}
+
+
+public void Acitvate()
+{
+  if(canRage)
+  {
+    canRage = false;
+    
+  }
+}
+
+
+IENumerator raging()
+{
+  
+}
+
+IENumerator heal()
+{
+  for(int i =0; i > 10; i++)
+  {
+    yeild return new WaitForSeconds(2)
+    ph.Heal(5);
+
+  }
+}
