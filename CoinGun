@@ -1,0 +1,8 @@
+public CurrencyManager cm;
+
+
+if(cm.Coins > 0)
+{
+  //shoot script
+  cm.Coins - 1;
+}
