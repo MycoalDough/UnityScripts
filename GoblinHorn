@@ -1,0 +1,46 @@
+public float time;
+public bool use = false;
+
+public void EngageHorn()
+{
+  if(!use)
+  {
+    
+  }
+}
+
+
+IENumberator effectGive()
+{
+   EnemyController[] control = (EnemyController[]) GameObject.FindObjectsOfType (typeof(EnemyController));
+   
+ foreach (EnemyController control in controllers)
+ {
+     control.health = control.health * 1.25;
+     
+              foreach (Transform child in control.transform)
+              {
+                if(child.GetComponent<EnemyRange>())
+                {
+                child.GetComponent<EnemyRange>().range = child.GetComponent<EnemyRange>().range * 1.25;
+                }
+              }
+ }
+ 
+ yield return new WaitForSeconds(20);
+ 
+    EnemyController[] control = (EnemyController[]) GameObject.FindObjectsOfType (typeof(EnemyController));
+   
+ foreach (EnemyController control in controllers)
+ {
+     control.health = control.health / 1.25;
+     
+              foreach (Transform child in control.transform)
+              {
+                if(child.GetComponent<EnemyRange>())
+                {
+                child.GetComponent<EnemyRange>().range = child.GetComponent<EnemyRange>().range / 1.25;
+                }
+              }
+ }
+}
