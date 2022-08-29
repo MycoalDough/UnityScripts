@@ -3,7 +3,9 @@ public float canRage;
 public float maxRage = 100f;
 
 public PlayerHealh ph;
+public Player player;
 
+public int newSpeed;
 
 public void IncreaseRage(int damage)
 {
@@ -41,15 +43,25 @@ public void Acitvate()
 
 IENumerator raging()
 {
+canRage = false;
+  int savedForce;
+  savedForce = player.Speed;
   
+  player.Speed = newSpeed;
+  StartCourintine(heal());
+  yield return new WaitForSeconds(20);
+  player.Speed = savedForce;
+  canRage = true;
+
 }
 
 IENumerator heal()
 {
-  for(int i =0; i > 10; i++)
+  for(int i =0; i > 20; i++)
   {
-    yeild return new WaitForSeconds(2)
+    yeild return new WaitForSeconds(1);
+    
     ph.Heal(5);
-
+    //change rage bar fill by -0.05
   }
 }
