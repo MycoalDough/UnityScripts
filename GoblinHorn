@@ -17,6 +17,8 @@ IENumberator effectGive()
  foreach (EnemyController control in controllers)
  {
      control.health = control.health * 1.25;
+     control.health = control.health + 30;
+
      
               foreach (Transform child in control.transform)
               {
@@ -30,10 +32,13 @@ IENumberator effectGive()
  yield return new WaitForSeconds(20);
  
     EnemyController[] control = (EnemyController[]) GameObject.FindObjectsOfType (typeof(EnemyController));
+    
+    
    
  foreach (EnemyController control in controllers)
  {
      control.health = control.health / 1.25;
+     control.health = control.health - 30;
      
               foreach (Transform child in control.transform)
               {
