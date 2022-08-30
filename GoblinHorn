@@ -12,15 +12,15 @@ public void EngageHorn()
 
 IENumberator effectGive()
 {
-   EnemyController[] control = (EnemyController[]) GameObject.FindObjectsOfType (typeof(EnemyController));
+   EnemyController[] controlEnable = (EnemyController[]) GameObject.FindObjectsOfType (typeof(EnemyController));
    
  foreach (EnemyController control in controllers)
  {
-     control.health = control.health * 1.25;
-     control.health = control.health + 30;
+     controlEnable.health = control.health * 1.25;
+     controlEnable.health = control.health + 30;
 
      
-              foreach (Transform child in control.transform)
+              foreach (Transform child in controlEnable.transform)
               {
                 if(child.GetComponent<EnemyRange>())
                 {
@@ -31,16 +31,16 @@ IENumberator effectGive()
  
  yield return new WaitForSeconds(20);
  
-    EnemyController[] control = (EnemyController[]) GameObject.FindObjectsOfType (typeof(EnemyController));
+    EnemyController[] controlDisable = (EnemyController[]) GameObject.FindObjectsOfType (typeof(EnemyController));
     
     
    
  foreach (EnemyController control in controllers)
  {
-     control.health = control.health / 1.25;
-     control.health = control.health - 30;
+     controlDisable.health = control.health / 1.25;
+     controlDisable.health = control.health - 30;
      
-              foreach (Transform child in control.transform)
+              foreach (Transform child in controlDisable.transform)
               {
                 if(child.GetComponent<EnemyRange>())
                 {
