@@ -2,7 +2,7 @@ Public int rage;
 public float canRage;
 public float maxRage = 100f;
 
-public PlayerHealh ph;
+public PlayerHealth ph;
 public Player player;
 
 public int newSpeed;
