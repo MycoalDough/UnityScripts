@@ -1,0 +1,25 @@
+        public class ActionOrder {
+           
+            public int Speed;
+            public bool EnemyAction;
+            public float enemyDropRate;
+            public GameObject enemyDrop;
+            public ActionOrder (int speed, bool enemyAction, Gameobjec
+                Speed = speed;
+                EnemyAction = enemyAction;        
+            }
+        }
+       
+        public List<ActionOrder> actionOrder = new List<ActionOrder>();
+     
+        void Start () {        
+           
+            Debug.Log (actionOrder.Count);    
+            actionOrder.Add (new ActionOrder(14, true));
+            Debug.Log (actionOrder.Count);
+ 
+            for(int cnt = 0; cnt < actionOrder.Count; cnt++) {
+                   Debug.Log("Speed: " + actionOrder[cnt].Speed + "  Enemy Action:" + actionOrder[cnt].EnemyAction;
+            }
+       
+        }
