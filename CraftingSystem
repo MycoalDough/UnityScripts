@@ -1,0 +1,8 @@
+public CurrencyManager cm;
+
+
+public void craft()
+{
+  //use a new item system where you can I FORGOTR
+  //crafting system video, item system
+}
