@@ -1,0 +1,26 @@
+public CharacterSkinController csc;
+public float xVal;
+public float yVal;
+
+void Awake()
+{
+
+
+if(csc.skin == "Giant")
+  {
+    transform.localScale = new Vector2(xVal, yVal);
+  }
+}
+
+void enbiggen()
+{
+  
+}
+
+IENumerator enlarge()
+{
+  transform.localScale = new Vector2(transform.localScale.x * 2.083, transform.localScale.y * 2.083);
+  yield return new WaitForSeconds(10);
+  transform.localScale = new Vector2(transform.localScale.x / 2.083, transform.localScale.y / 2.083);
+
+}
