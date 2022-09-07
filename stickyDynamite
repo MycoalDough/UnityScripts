@@ -19,6 +19,8 @@ IENumerator connect()
   yield return new WaitForSeconds(2);
   
   ExplosionScript exp = gameObject.AddComponenet<ExplosionScript>();
+  exp.antiPlayer = false;
+  exp.range = 1f;
   //change variables
   
 }
