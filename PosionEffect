@@ -24,6 +24,16 @@ public void Poison(Tranform spawn)
   }
 }
 
+IENumerator posion()
+{
+  if(!canbePoisioned = false)
+  {
+    yeild return new waitForSeconds(1
+  }
+}
+
+
+
 //for the collision detection
 
 if(collison.gameObject.tag == "Poison")
