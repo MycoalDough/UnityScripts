@@ -1,0 +1,24 @@
+public FixedJoint2D fj;
+
+public void Start
+{
+    fj = gameObject.getComponent<FixedJoint2D>();
+    fj.enabled = false;
+}
+public void OnCOllisionEnter2D(Colldier collision)
+{
+enabled = true;
+  if(collision.gameObject.getComponent<Rigidbody2D>())
+  {
+    fj.connectedRigidbody = collision.gameObject;
+  }
+}
+
+IENumerator connect()
+{
+  yield return new WaitForSeconds(2);
+  
+  ExplosionScript exp = gameObject.AddComponenet<ExplosionScript>();
+  //change variables
+  
+}
