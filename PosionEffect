@@ -1,0 +1,32 @@
+public LayerMask collison;
+
+public onTriggerEnter2D(Collider col)
+{
+
+  if(col.gameObject.tag == collision)
+  {
+    collision.gameObject.getComponent<ClassicCollision>().posion;
+  }
+}
+
+
+
+//for the main classic HP
+
+public bool canBePoisioned = true;
+public GameObject poisonCube;
+public void Poison(Tranform spawn)
+{
+  if(canbePosioned)
+  {
+    Instantiate(poisonCube, spawn.poision, spawn.rotation, spawn);
+    canBePoisoned = false;
+  }
+}
+
+//for the collision detection
+
+if(collison.gameObject.tag == "Poison")
+{
+  controller.Poison(this);
+}
