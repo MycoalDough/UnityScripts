@@ -1,0 +1,12 @@
+public int cost;
+public GameManager gm;
+public GameObject weapon;
+
+
+//borrow some variables and functions from merchant script (as in steal)
+public void Start()
+{
+  weapon = gm.weapons[Random.Range(0, gm.weapons.length)].gameObject;
+  
+  for(int i = 0;
+}
