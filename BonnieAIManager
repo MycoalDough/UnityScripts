@@ -1,0 +1,20 @@
+public GameObject[] bonnieSprites;
+public int currentSpot;
+public CameraManager cam;
+
+//movement
+public int maxTimeTilMove;
+public int curTime;
+public int minRandom;
+public int maxRandom;
+
+
+public void Start()
+{
+  
+}
+
+public void Update()
+{
+  
+}
