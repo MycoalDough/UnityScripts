@@ -52,6 +52,7 @@ public void move()
     if(movingToPlayer)
       {
         //change room to move towards player
+        //int current = bonnieSprites
       }
     else if(!movingToPlayer)
       {
