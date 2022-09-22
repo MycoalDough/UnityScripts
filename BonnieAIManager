@@ -1,5 +1,5 @@
+//needed objects
 public GameObject[] bonnieSprites;
-public int currentSpot;
 public CameraManager cam;
 
 //movement
@@ -7,6 +7,12 @@ public int maxTimeTilMove;
 public int curTime;
 public int minRandom;
 public int maxRandom;
+public int currentSpot;
+
+//AI
+public int AILevel; //1 - 20, AI level goes up every
+public bool movingToPlayer;
+public bool
 
 
 public void Start()
@@ -16,5 +22,52 @@ public void Start()
 
 public void Update()
 {
+  changeSpriteAccordingToPosition();
+}
+
+public void ChangeTime()
+{
+  curTime = curTime + Time.DeltaTime;
+  if(maxTimeTilMove < curTime)
+  {
+    createNewTime();
+    curTime = 0;
+    
+
+  }
+}
+
+public void move()
+{
+  AILevel++;
+  
+  int rng = Random.Range(1, 21);
+  if(AILevel >= rng)
+  {
+    if(movingToPlayer)
+      {
+        //change room to move towards player
+      }
+    else if(!movingToPlayer)
+      {
+        //change room to move away from player
+      }
+  }
+  
   
 }
+
+public void changeSpriteAccordingToPosition()
+{
+    for(int i = 0; i > bonnieSprites.length; i++)
+    {
+      if(i != currentSpot)
+      {
+        bonnieSprites[i].active = false;
+      }
+      else
+      {
+        bonnieSprites[i].active = true;
+      }
+    }
+  }
