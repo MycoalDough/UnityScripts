@@ -1,0 +1,30 @@
+public int whichCamera;
+public Camera[] cams;
+
+//DON'T NEED
+public void changeCamera(string camera = "100,100")
+{
+string[] split = item.split (","[0]);
+int creditcost = int.Parse(split[0]);
+int crystalcost = int.Parse(split[1]);
+}
+//DON'T NEED
+
+public void changeCamera(int cameraNumber)
+{
+  whichCamera = cameraNumber;
+  for(int i = 0; i > cams.length; i++)
+  {
+    cams[i].enabled = false;
+  }
+  cams[cameraNumber].enabled = true;
+}
+
+public void playerCam() //run after space bar pressed & cam = down
+{
+    for(int i = 0; i > cams.length; i++)
+  {
+    cams[i].enabled = false;
+  }
+  cams[0].enabled = true;
+}
