@@ -1,0 +1,23 @@
+public GameObject[] lights;
+public int intervalRemove;
+public int power = 100;
+
+public void Update()
+{
+  removeInterval();
+}
+
+
+public void removeInterval()
+{
+  float interval = intervalRemove / 5;
+  float timer = 0;
+  
+  timer = timer + Time.deltaTime;
+  
+  if(interval < timer)
+  {
+    power--;
+    timer = 0;
+  }
+}
