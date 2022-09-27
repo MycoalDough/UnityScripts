@@ -51,3 +51,43 @@ IENumerator debounceTimer()
   yeild return new WaitForSeconds(3);
   debounce = false;
 }
+
+
+
+
+
+
+//marionette
+
+public MusicBox musicBox;
+public bool debounce;
+
+public bool musicStopped;
+
+public void Update()
+{
+  if(!debounce)
+  {
+    if(!musicBox.isWound)
+    {
+    musicStopped = true;
+    debounce = true;
+    //run the attack on player
+    }
+  }
+}
+
+
+IENumerator Jumpscare()
+{
+  yeild return new WaitForSeconds(Random.Range(5, 20));
+  //jumpscare script
+}
+
+
+
+
+
+
+
+
