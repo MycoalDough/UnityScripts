@@ -1,0 +1,53 @@
+//music box
+
+public Image windUpTimer; //change image to circle, fill, 360 circle
+public windedUpTime = 60f;
+public bool isWound = true;
+public bool windDebounce = false;
+public Image windUpButton;
+
+public void Start()
+{
+  windUpTimer.fill = 1f;
+}
+
+public void Update()
+{
+  windUpTimer.fill -= 1 / windedUpTime * Time.deltaTime;
+  
+  if(windUpTimer.fill <= 0)
+  {
+    isWound = false;
+  }
+  else
+  {
+    isWound = true;
+  }
+  
+  if(windDebounce)
+  {
+    //change the color to indicate cd?
+  }
+  else
+  {
+    //change back to normal
+  }
+}
+
+
+
+public void WindUpMusicBox()
+{
+  if(!debounce)
+  {
+    windUpTimer.fill = windUpTimer.fill + 10 / windedUpTime;
+    StartCourintine(debounceTimer());
+  }
+}
+
+IENumerator debounceTimer()
+{
+  debounce = true;
+  yeild return new WaitForSeconds(3);
+  debounce = false;
+}
