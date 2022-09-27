@@ -1,0 +1,22 @@
+//same as foxy script, but inside a vent, add into game with a cloned foxy script
+
+public DoorManager vent; //link to new vent door
+
+public GameObject[] disable;
+
+//if he does get to you, edit the jumpscare script where he removes the light buttons for (2 + (AlLevel / 3)) seconds
+
+
+
+IENumerator removePower()
+{
+  for(int i = 0; i < lights.Length; i++)
+  {
+    disable[i].SetActive(false);
+  }
+  yeild return new WaitForSeconds((AILevel / 3) + 2);
+    for(int i = 0; i < lights.Length; i++)
+  {
+    disable[i].SetActive(true);
+  }
+}
