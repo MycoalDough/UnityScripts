@@ -1,0 +1,42 @@
+public Animator anim;
+
+
+public int maxTimeLeave;
+public float timeTilLeave;
+
+
+
+
+//mask
+
+public bool maskOn;
+public Animator anim;
+public bool debounce;
+
+public void Update()
+{
+  if(Input.GetKeyDown(KeyCode.W))
+  {
+    if(!debounce)
+    {
+      if(maxOn)
+      {
+        maskOn = false;
+        anim.Play("MaskOff");
+        StartCourintine(debounceCheck(0.7f));
+      }
+      else if(!maskOn)
+      {
+        maskOn = true;
+        anim.Play("MaskOn");
+      }
+    }
+  }
+}
+
+IENumerator debounceCheck(float seconds)
+{
+  debounce = true;
+  yeild return new WaitForSeconds(seconds);
+  debounce = false;
+}
