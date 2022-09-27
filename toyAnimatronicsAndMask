@@ -4,7 +4,16 @@ public Animator anim;
 public int maxTimeLeave;
 public float timeTilLeave;
 
+public int AILevel;
 
+IENumerator hasMask()
+{
+yeild return new WaitForSeconds(1 - (AILevel * 1.5));
+  if(!mask.maskOn)
+  {
+    jumpscare();
+  }
+}
 
 
 //mask
