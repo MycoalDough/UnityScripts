@@ -1,14 +1,44 @@
-public int currentTemperature;
+Using TMPro;
+
+public int temp;
 public PowerManager power;
 public bool coolerOn = false;
-public bool debounce
+public bool debounce = false;
+
+public TextMeshProGUI textTemp;
+public int removeEnergy = 0; //removeEnergy++ every cooler, when 3 then deplete one en 
 
 public void Update()
 {
-  
+
+  textTemp.text = "" + temp + "°";
+  if(!debounce)
+  {
+    if(coolerOn)
+    {
+      StartCourintine(cooler());
+    }
+    else
+    {
+      StartCourintine(coolerOff());
+    }
+  }
+
 }
 
 IENumerator cooler()
 {
-  
+  debounce = true;
+  yeild return new WaitForSeconds(3);
+  temp--;
+  removeEnergy++;
+  debounce = false;
+}
+
+IENumerator coolerOff()
+{
+  debounce = true;
+  yeild return new WaitForSeconds(5);
+  temp++;
+  debounce = true;
 }
