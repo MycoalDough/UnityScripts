@@ -1,0 +1,78 @@
+//bonnie
+
+public GameObject[] guitars;
+public int MaxTime;
+public float time;
+
+public int MaxTimeGuitar;
+public float timeGuitar;
+
+public bool found;
+public bool debounce = false; 
+
+
+public void Update()
+{
+  if(!found)
+  {
+    timer();
+  }
+  if(found)
+  {
+    foundGuitar();
+  }
+}
+
+public void timer()
+{
+  time = time + Time.deltaTime;
+ 
+ 
+  if(time > MaxTime)
+  {
+    //jumpscare
+  }
+}
+
+public void foundGuitar()
+{
+if(!debounce)
+  {
+    found = true;
+    time = 0;
+    StartCourintine(changeTimer());
+  }
+}
+
+IEnumerator changeTimer()
+{
+  debounce = true;
+  for (int i = 0; i < guitars.Length; i++)
+  {
+    guitars[i].setActive(false);
+  }
+  yield return new WaitForSeconds(35 - AILevel);
+  spawnRandomGuitar();
+  found = false;
+  debounce = false;
+}
+
+public void spawnRandomGuitar()
+{
+  for (int i = 0; i < guitars.Length; i++)
+  {
+    guitars[i].setActive(false);
+  }
+  
+  guitars[Random.Range(0, guitars.Length)].setACtive(true);
+}
+
+
+//guitar
+public RockstarBonnie rb;
+
+public void OnMouseDown()
+{
+  rb.found = true;
+  gameObject.setActive(false);
+}
