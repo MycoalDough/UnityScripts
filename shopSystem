@@ -1,0 +1,52 @@
+public GameObject coin;
+public GameObject canvas;
+public float time;
+public int maxTime;
+
+public int coins;
+  
+public int maxTimeMin, maxTimeMax;
+
+
+public void Update()
+{
+  if(canvas.activeInHeirarchy)
+  {
+    generateCoins();
+  }
+}
+
+public void generateNewMax()
+{
+  maxTime = Random.Range(maxTimeMIn, maxTimeMax + 1);
+}
+
+public void generateCoins()
+{
+  time = time + Time.deltaTime;
+  
+  if(time > maxTime)
+  {
+    time = 0;
+    generateNewMax();
+    createNewCoin();
+  }
+}
+
+public void createNewCoin()
+{
+  //Instantiate(coin, //other stuff, otherstuff, canvas);
+}
+
+//coin
+
+public CoinManager coin;
+
+public OnMouseDown()
+{
+  coin.coins++;
+  Destroy(gameObject);
+}
+
+
+
