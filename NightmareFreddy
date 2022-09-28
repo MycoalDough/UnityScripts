@@ -1,0 +1,22 @@
+public GameObject[] miniFreddies;
+public Bool[] active;
+
+public void Update()
+{
+  for(int i = 0, i < miniFreddies.Length, i++)
+  {
+    if(miniFreddies[i].activeInHeirarchy)
+    {
+      active[i] = false;
+    }
+    else
+    {
+      active[i] = true;
+    }
+  }
+  
+  if(!active[0] && !active[1] && !active[2] && !active[3])
+  {
+    jumpscare();
+  }
+}
