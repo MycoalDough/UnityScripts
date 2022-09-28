@@ -1,0 +1,14 @@
+public int currentTemperature;
+public PowerManager power;
+public bool coolerOn = false;
+public bool debounce
+
+public void Update()
+{
+  
+}
+
+IENumerator cooler()
+{
+  
+}
