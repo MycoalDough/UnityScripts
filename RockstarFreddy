@@ -1,0 +1,48 @@
+//timer for depositing 5 coins
+public float maxTimeDepoist;
+public float timeDeposit;
+
+//timer after depoists 5 coins
+public float maxTimeCD;
+public float timeCD;
+
+public int AILevel;
+public bool dp = false;
+
+public TemperatureManager temp;
+
+public void Awake()
+{
+  maxTimeDeposit = 20 - (AILevel / 1.5);
+  maxTimeCD = 30 - (AILevel / 1.5);
+}
+public void timeTilDeposit()
+{
+  if(!dp)
+  {
+    timeCD = timeCD + Time.deltaTime;
+    
+    if(timeCD > maxTimeCD)
+    {
+      dp = true;
+    }
+  }
+}
+
+public void timeForDeposit()
+{
+  if(dp)
+  {
+    timeDeposit = timeDeposit + Time.deltaTime;
+    
+    if(timeDeposit > maxTimeDeposit)
+    {
+      Jumpscare();
+    }
+  }
+}
+
+public void Jumpscare()
+{
+
+}
