@@ -1,0 +1,6 @@
+public SoundManager sound;
+
+if(sound.sound > 40)
+{
+  //run movement commands
+}
