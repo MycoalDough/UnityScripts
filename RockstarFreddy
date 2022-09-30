@@ -1,7 +1,7 @@
 //timer for depositing 5 coins
 public float maxTimeDepoist;
 public float timeDeposit;
-
+public CurrencyManager currency;
 //timer after depoists 5 coins
 public float maxTimeCD;
 public float timeCD;
@@ -16,6 +16,31 @@ public void Awake()
   maxTimeDeposit = 20 - (AILevel / 1.5);
   maxTimeCD = 30 - (AILevel / 1.5);
 }
+
+public void Update()
+{
+  if(dp)
+  {
+    timeForDeposit();
+  }
+  else
+  {
+    timeTilDeposit();
+  }
+}
+
+public void insertedFiveCoins()
+{
+  if(currency.Coins >= 5)
+  {
+    currency.Coins = currency.Coins - 5;
+    dp = false;
+    timeDeposit = 0;
+    timeCD = 0;
+    
+  }
+}
+
 public void timeTilDeposit()
 {
   if(!dp)
