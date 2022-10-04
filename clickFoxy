@@ -1,0 +1,41 @@
+//parent foxy
+
+public int AILevel;
+public GameObject[] clickableFoxys;
+public Bool[] foxysActive;
+
+public void Update()
+{
+  for(int i = 0; i < clickableFoxys.Length; i++)
+  {
+    if(clickableFoxys[i].enabled = true)
+    {
+      foxysActive[i] = true;
+    }
+    else
+    {
+      foxysActive[i] = false;      
+    }
+  }
+  
+  if(foxysActive[0] == true && foxysActive[1] == true && foxysActive[2] == true && foxysActive[3] == true)
+  {
+    jumpscare();
+  }
+}
+
+//clicable foxys
+
+
+public Animator anim;
+public int AILevel;
+public clickFoxy foxy;
+
+public float maxTime;
+public float time;
+public bool onDesk = false;
+
+public void Awake()
+{
+  this.AILevel = foxy.AILevel;
+}
