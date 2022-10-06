@@ -57,7 +57,7 @@ public void Update()
     {
       anim.Play("LeaveVent");
       time = 0;
-      onDesk = true;
+      //onDesk = true; set inside of the animation
       changeRandomMaxTime();
     }
   }
@@ -67,6 +67,7 @@ public void OnMouseDown()
 {
   if(onDesk)
   {
+    anim.Stop();
     anim.Play("leave");
     onDesk = false;
   }
