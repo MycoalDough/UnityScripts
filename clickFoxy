@@ -34,6 +34,7 @@ public clickFoxy foxy;
 public float maxTime;
 public float time;
 public bool onDesk = false;
+public DoorManager vent;
 
 public void Awake()
 {
@@ -42,13 +43,24 @@ public void Awake()
 
 public void Update()
 {
-  if(!onDesk)
+  if(!onDesk && vent.isOpen)
   {
     time = time + Time.deltaTime;
     
     if(time > maxTime)
     {
-      
+      anim.Play("LeaveVent");
+      time = 0;
+      onDesk = true;
     }
+  }
+}
+
+public void OnMouseDown()
+{
+  if(onDesk)
+  {
+    anim.Play("leave");
+    onDesk = false;
   }
 }
