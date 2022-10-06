@@ -39,6 +39,12 @@ public DoorManager vent;
 public void Awake()
 {
   this.AILevel = foxy.AILevel;
+  changeRandomMaxTime();
+}
+
+public void changeRandomMaxTime()
+{
+  maxTime = Random.Range(30 - AILevel, 70);
 }
 
 public void Update()
@@ -52,6 +58,7 @@ public void Update()
       anim.Play("LeaveVent");
       time = 0;
       onDesk = true;
+      changeRandomMaxTime();
     }
   }
 }
