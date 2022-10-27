@@ -1,6 +1,6 @@
 public FixedJoint2D fj;
 
-public void Start
+public void Awake()
 {
     fj = gameObject.getComponent<FixedJoint2D>();
     fj.enabled = false;
@@ -11,6 +11,7 @@ enabled = true;
   if(collision.gameObject.getComponent<Rigidbody2D>())
   {
     fj.connectedRigidbody = collision.gameObject;
+    StartCourintine(connect());
   }
 }
 
