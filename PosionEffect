@@ -5,7 +5,9 @@ public onTriggerEnter2D(Collider col)
 
   if(col.gameObject.tag == collision)
   {
-    collision.gameObject.getComponent<ClassicCollision>().posion;
+    collision.gameObject.getComponent<ClassicCollision>().posion();
+        collision.gameObject.getComponent<ClassicCollision>().posisonValue = 5;
+
   }
 }
 
@@ -15,20 +17,36 @@ public onTriggerEnter2D(Collider col)
 
 public bool canBePoisioned = true;
 public GameObject poisonCube;
+public int poisionVal = 2;
+
+public void Start()
+{
+  poisionVal = 5;
+}
 public void Poison(Tranform spawn)
 {
   if(canbePosioned)
   {
-    Instantiate(poisonCube, spawn.poision, spawn.rotation, spawn);
-    canBePoisoned = false;
+    if(poisionValue > 0)
+    {
+      Instantiate(poisonCube, spawn.poision, spawn.rotation, spawn);
+      StartCourintine(posionStall(2));
+      canBePoisoned = false;
+    }
+    else
+    {
+      return;
+      //stop loop
+    }
   }
 }
 
-IENumerator posion()
+IENumerator posionStall(int speed)
 {
   if(!canbePoisioned = false)
   {
-    yeild return new waitForSeconds(1
+    yeild return new waitForSeconds(speed);
+    Poison();
   }
 }
 
