@@ -1,0 +1,80 @@
+private CharacterSkinController csc;
+private PlayerHealth ph;
+
+public GameObject massHeal; //(sphere around player always, dead layer, -50 = name, enemy melee as tag) (when used massHeal, change layer to enemy for .001 seconds, then back)
+
+private float massTimeHeal, massMaxTimeHeal;
+private bool mass = false;
+private float timeHeal, maxTimeHeal;
+
+private float t, mt;
+
+
+
+public void Start()
+{
+  csc = gameObject.getComponent<PlayerHealth>();
+  ph = getComponent<PlayerHealth>();
+  if(csc)
+    {
+    if(csc.skin == "Medic")
+    {
+      ph.maxHealth = 80;
+      ph.currentHealth = 80;
+      massHeal.setActive(true);
+    }
+  }
+  else
+  {
+    enabled = false;
+    
+  }
+}
+
+public void Update()
+{
+  autoHeal();
+}
+
+public void massHeal()
+{
+  if(!mass)
+  {
+    massHeal.layer == 10; //dead layer
+  }
+  else
+  {
+    t = t + Time.deltaTime;
+    
+    if(t > mt)
+    {
+      massHeal.layer == 9; //enemy layer
+      t = 0;
+      mass = false;
+    }
+  }
+  
+  massTimeHeal = massTimeHeal + Time.deltaTime;
+  
+  if(massTimeHeal > massMaxTimeHeal)
+  {
+    if(Input.GetKeyDown(KeyCode.Z))
+    {
+      massTimeHeal = 0;
+      mass = true;
+    }
+  }
+  
+}
+
+
+public void autoHeal()
+{
+  timeHeal = timeHeal + Time.deltaTime;
+  
+  if(timeHeal > maxTimeHeal)
+  {
+    timeHeal = 0;
+    ph.Heal(5);
+  }
+}
