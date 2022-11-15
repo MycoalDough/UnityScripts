@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MutationSkin : MonoBehaviour
+public class MutationSkin : MonoBehaviour //make sure to give arms the lunge script so they can attack
+
+//give the player's spitter to see if the nearest enemy is negative if so then add force to the left
 {
     public CharacterSkinController csc;
     public PlayerHealth ph;
     public Player player;
 
+    public GameObject spore;
     [SerializeField] private bool stealthVal;
     public GameObject[] limbs;
 
     public GameObject arm1;
     public GameObject arm2;
+    
+    public GameObject claw1;
+    public GameObject claw2;
 
     public GameObject zombieJaw;
 
@@ -40,6 +46,12 @@ public class MutationSkin : MonoBehaviour
             ph.maxHealth = 70;
             ph.currentHealth = 70;
         }
+    }
+    
+    public void Update()
+    {
+        claw1.name = (ph.maxHealth / 2.5);
+        claw2.name = claw1.name;
     }
 
     private void OnLevelWasLoaded(int level)
@@ -136,8 +148,44 @@ public class MutationSkin : MonoBehaviour
 
     public void acidPool()
     {
+        ph.maxHealth = ph.maxHealth - 5;
+        ph.currentHealth = ph.currentHealth - 5;
         acidPoolGameObject.SetActive(true);
+    }
+    
+    public void claw()
+    {
+        claw1.setActive(true); 
+        claw2.setACtive(true);
+    }
+    
+    public void spore()
+    {
+        spore.setActive(true);
+    }
+    
+    public void siren()
+    {
+        
     }
 
 
+}
+
+
+
+
+//siren
+
+public float time, maxTime;
+{
+    void Update()
+    {
+        time = time + Time.deltaTime;
+        
+        if(time > maxTime)
+        {
+        
+        }
+    }
 }
