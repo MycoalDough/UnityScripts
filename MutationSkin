@@ -1,0 +1,143 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MutationSkin : MonoBehaviour
+{
+    public CharacterSkinController csc;
+    public PlayerHealth ph;
+    public Player player;
+
+    [SerializeField] private bool stealthVal;
+    public GameObject[] limbs;
+
+    public GameObject arm1;
+    public GameObject arm2;
+
+    public GameObject zombieJaw;
+
+    public Ragdoll rg;
+
+    public GameObject homingMissile;
+    public GameObject hmSpawn;
+
+    public GameObject acidPoolGameObject;
+    public void Start()
+    {
+        csc = gameObject.GetComponent<CharacterSkinController>();
+        if(csc.skin != "Mutated")
+        {
+            enabled = false;
+        }
+        else
+        {
+            arm1.name = 20 + "";
+            arm1.tag = "PlayerMelee";
+            arm2.tag = "PlayerMelee";
+            arm1.layer = 14;
+            arm2.layer = 14;
+            arm2.name = 20 + "";
+            ph.maxHealth = 70;
+            ph.currentHealth = 70;
+        }
+    }
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if(stealthVal)
+        {
+            StartCoroutine(stealthStart());
+        }
+    }
+
+    IEnumerator stealthStart()
+    {
+        yield return new WaitForSeconds(1f);
+        EnemyRange[] ranges = FindObjectsOfType(typeof(EnemyRange)) as EnemyRange[];
+        foreach (EnemyRange range in ranges) 
+        {
+            range.range = range.range / 1.5f;
+        }
+
+    }
+
+
+    public void tough()
+    {
+        ph.maxHealth = ph.maxHealth + 10;
+        ph.currentHealth = ph.currentHealth + 10;
+    }
+
+    public void speed()
+    {
+        player.movementSpeed = player.movementSpeed + 15;
+    }
+
+    public void reach()
+    {
+        for (int i = 3; i < 6; i++)
+        {
+            limbs[i].gameObject.transform.localScale = new Vector3(limbs[i].gameObject.transform.localScale.x, limbs[i].gameObject.transform.localScale.y * 1.17f);
+        }
+    }
+
+    public void mini()
+    {
+        for (int i = 0; i < limbs.Length; i++)
+        {
+            limbs[i].gameObject.transform.localScale = new Vector3(limbs[i].gameObject.transform.localScale.x * 0.9f, limbs[i].gameObject.transform.localScale.y * 0.9f);
+        }
+    }
+
+    public void enbiggen()
+    {
+        for (int i = 0; i < limbs.Length; i++)
+        {
+            limbs[i].gameObject.transform.localScale = new Vector3(limbs[i].gameObject.transform.localScale.x * 1.05f, limbs[i].gameObject.transform.localScale.y * 1.05f);
+        }
+    }
+
+    public void damage()
+    {
+        arm1.name = (int.Parse(arm1.name) + 5) + "";
+        arm1.name = (int.Parse(arm2.name) + 5) + "";
+    }
+
+    public void crawler()
+    {
+        rg.ragdoll();
+        arm1.name = (int.Parse(arm1.name) + 10) + "";
+        arm2.name = (int.Parse(arm2.name) + 10) + "";
+    }
+
+    public void jaw()
+    {
+        zombieJaw.SetActive(true);
+    }
+
+    public void rocketArm()
+    {
+        hmSpawn.SetActive(true);
+        TeslaShoot HW = hmSpawn.AddComponent<TeslaShoot>();
+        HW.bullet = homingMissile;
+        HW.range = 23;
+        HW.targTag = "Enemy";
+    }
+
+    public void stealth()
+    {
+        for (int i = 0; i < limbs.Length; i++)
+        {
+            Color tmp = limbs[i].GetComponent<SpriteRenderer>().color;
+            tmp.a = 140;
+            stealthVal = true;
+        }
+    }
+
+    public void acidPool()
+    {
+        acidPoolGameObject.SetActive(true);
+    }
+
+
+}
