@@ -185,7 +185,12 @@ public float time, maxTime;
         
         if(time > maxTime)
         {
-        
+            if(Input.GetKeyDown(KeyCode.Z))
+            {
+                //scream;
+                //3 pulses, each one has a change to: stun, deal damage, make melee less damage
+                time = 0;
+            }
         }
     }
 }
