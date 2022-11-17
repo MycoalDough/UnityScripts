@@ -13,6 +13,8 @@ public class MutationSkin : MonoBehaviour //make sure to give arms the lunge scr
     public GameObject spore;
     [SerializeField] private bool stealthVal;
     public GameObject[] limbs;
+    
+    public GameObject[] armored;
 
     public GameObject arm1;
     public GameObject arm2;
@@ -167,6 +169,12 @@ public class MutationSkin : MonoBehaviour //make sure to give arms the lunge scr
     public void siren()
     {
         
+    }
+    
+    public void armor()
+    {
+        ph.maxHealth += 5;
+        ph.currentHealth += 5;
     }
 
 
