@@ -1,0 +1,31 @@
+if(cryo) //create an animation with ice breath coming out of the ground upwwards, spawn a cool ice spike animation (down & small to up and big)
+{
+  healthAIManager.cryoFreeze();
+}
+ 
+//in parent w/ controller
+
+public void cryoFreeze()
+{
+  StartCourintine(cryo());
+}
+
+
+IENumerator cryo()
+{
+  foreach(Transform child in transform)
+  {
+    if(child.gameObject.GetComponent<Rigidbody2D>())
+    {
+      child.gameObject.GetComponent<Rigidbody2D>(). //lock positions
+    }
+  }
+  yield return new WaitForSeconds(3);
+    foreach(Transform child in transform)
+  {
+    if(child.gameObject.GetComponent<Rigidbody2D>())
+    {
+      child.gameObject.GetComponent<Rigidbody2D>(). //UNlock positions
+    }
+  }
+}
