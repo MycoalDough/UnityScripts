@@ -1,0 +1,6 @@
+//for enemy health
+
+if(upgradeManager.goliath)
+{
+  Damage((int) (health * 0.05));
+}
