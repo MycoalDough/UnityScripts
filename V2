@@ -10,8 +10,11 @@ public class PlayerV2AI : MonoBehaviour
     public GameObject shield;
     public GameObject sniper;
     public GameObject nano;
+    public GameObject cloudweapon;
     public Albowtross_Flight af;
     public GameObject flyMech;
+    
+    public GameObject cloud;
 
     public float shieldCD = 1000;
     public bool shieldDB;
@@ -59,6 +62,9 @@ public class PlayerV2AI : MonoBehaviour
             weapons();
         }
     }
+    
+    
+    
 
     public void weapons()
     {
@@ -97,10 +103,26 @@ public class PlayerV2AI : MonoBehaviour
         yield return new WaitForSeconds(1);
         canSwap = true;
     }
+    
+    IEnumerator deployCloud()
+    {
+        yield return new WaitForSeconds(10);
+        swapWeapon("cloud");
+        GameObject cloud = Instantiate(cloud, transform.position, Quaternion.identity); //
+        //get cloud component that moves it, if 
+        
+        if (ec.target.transform.position.x < gameObject.transform.position.x)
+        {
+            //set cloud to move left
+        }
+
+        StartCoroutine(deployDriod());
+    }
 
 
     IEnumerator waitHeal()
     {
+        heal = false;
         yield return new WaitForSeconds(10);
         heal = true;
     }
@@ -179,6 +201,8 @@ public class PlayerV2AI : MonoBehaviour
 
         if(name == "sword")
         {
+            cloudweapon.SetActive(false);
+
             sword.SetActive(true);
             shield.SetActive(false);
             sniper.SetActive(false); nano.SetActive(false);
@@ -186,6 +210,8 @@ public class PlayerV2AI : MonoBehaviour
         }
         if (name == "shield")
         {
+            cloudweapon.SetActive(false);
+
             shield.SetActive(true);
             sword.SetActive(false);
             sniper.SetActive(false); nano.SetActive(false);
@@ -193,6 +219,7 @@ public class PlayerV2AI : MonoBehaviour
         }
         if (name == "sniper")
         {
+            cloudweapon.SetActive(false);
             sniper.SetActive(true);
             sword.SetActive(false);
             shield.SetActive(false); nano.SetActive(false);
@@ -201,12 +228,21 @@ public class PlayerV2AI : MonoBehaviour
         if (name == "nano")
         {
             heal = false;
+            cloudweapon.SetActive(false);
             nano.SetActive(true);
             sniper.SetActive(false);
             sword.SetActive(false);
             shield.SetActive(false);
             hm.healthSystem.Heal(50);
             StartCoroutine(waitHeal());
+        }
+        if(name == "cloud")
+        {
+            cloudweapon.SetActive(true);
+            nano.SetActive(false);
+            sniper.SetActive(false);
+            sword.SetActive(false);
+            shield.SetActive(false);
         }
     }
 
