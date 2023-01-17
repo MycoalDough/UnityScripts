@@ -11,9 +11,12 @@ public class PlayerV2AI : MonoBehaviour
     public GameObject sniper;
     public GameObject nano;
     public GameObject cloudweapon;
+    public GameObject sycthe;
     public Albowtross_Flight af;
     public GameObject flyMech;
     
+    public GameObject skeleton; //idk how, but every kill they get +1 skeleton for their team
+
     public GameObject cloud;
 
     public float shieldCD = 1000;
@@ -57,9 +60,13 @@ public class PlayerV2AI : MonoBehaviour
         }
         runAndHeal();
 
-        if (landed && !runAway)
+        if (landed && !runAway && ec.target.GetComponent<>()) //check if it's a player by finding a script only the player has
         {
             weapons();
+        }
+        else if(hm.healthSystem.health > 400 && runCD < 1000 && !runDB)
+        {
+            swapWeapon("scythe"); //swap to summoning sythce
         }
     }
     
