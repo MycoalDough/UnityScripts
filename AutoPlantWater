@@ -1,0 +1,28 @@
+public float range;
+public Soil[] soilTiles;
+
+public void Start()
+{
+  allSoilTiles = FindObjectsOfType<Soil>();
+  int count = 0;
+  for(int i = 0; i < soilTiles.length; i++)
+  {
+    if(Vector2.Distance(transform.position, soilTiles[i].gameObject.transform.position) <= range)
+    {
+      soilTiles[count] = allSoilTiles[i];
+      count++;
+    }
+  }
+  Array.Clear(arr, 0, arr.Length);
+}
+
+public void Update()
+{
+  for(int i = 0; i < soilTiles.length; i++)
+  {
+    if(!soilTiles[i].gameObject.GetComponent<Soil>().hasPlant)
+    {
+      //locate seeds
+    }
+  }
+}
