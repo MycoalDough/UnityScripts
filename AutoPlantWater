@@ -1,6 +1,10 @@
 public float range;
 public Soil[] soilTiles;
 
+public int corn;
+public int wheat;
+public int potato;
+
 public void Start()
 {
   allSoilTiles = FindObjectsOfType<Soil>();
@@ -23,6 +27,13 @@ public void Update()
     if(!soilTiles[i].gameObject.GetComponent<Soil>().hasPlant)
     {
       //locate seeds
+    }
+    else
+    {
+      if(soilTiles[i].gameObject.GetComponent<Soil>().mySeed.getComponent<Seed>().isReady && !soilTiles[i].gameObject.GetComponent<Soil>().mySeed.getComponent<Seed>().dead) 
+      {
+        soilTiles[i].gameObject.GetComponent<Soil>().mySeed.getComponent<Seed>().harvest();
+      }
     }
   }
 }
