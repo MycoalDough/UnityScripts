@@ -1,0 +1,224 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PreyAI : MonoBehaviour
+{
+    // Public variables
+    [Header("Prey Stats")]
+    public float speed;
+    public float size;
+    public float visionRange;
+    //public float visionAngle;
+    public float moveDir;
+    public float mutationFactor;
+    public float mutationChance;
+    // Private variables
+    [SerializeField] private float energy;
+    [SerializeField] private float thirst;
+    private bool carryingEgg;
+    private float eggHatchTime;
+    private float eggIncubationTime;
+    private float timeUntilHatch;
+    private float timeUntilEggReady;
+    private float metabolismCost;
+    public float reproductionNeed;
+
+
+
+    [Header("Settings")]
+    public string foodTag;
+    public string waterTag;
+    public string preyTag;
+    private float distanceToClosestPrey;
+    public GameObject preyGameObject;
+    private float distanceToClosestFood;
+    public float distFood;
+    public float distWater;
+    public float distPrey;
+    public GameObject foodGameObject;
+    private float distanceToClosestWater;
+    public GameObject waterGameObject;
+    public Vector3 desiredPos;
+    //public int reproduction;
+    private bool hungerDB;
+    private bool thirstDB;
+    private bool reproDB;
+
+
+    void Start()
+    {
+        reproductionNeed = 0;
+        // Set initial energy based on size
+        energy = size * 3;
+        thirst = size * 10;
+
+        transform.localScale = new Vector3(size, size, size);
+
+        desiredPos = new Vector3(transform.position.x + Random.Range(-moveDir, moveDir), gameObject.transform.position.y, transform.position.z + Random.Range(-moveDir, moveDir));
+        // Calculate metabolism cost based on speed and size
+        metabolismCost = speed / (size);
+
+        // Initialize egg variables
+        carryingEgg = false;
+        eggHatchTime = 0;
+        eggIncubationTime = 0;
+        timeUntilHatch = 0;
+        timeUntilEggReady = 0;
+    }
+
+    void Update()
+    {
+        findClosestFood();
+        findClosestWater();
+        // Decrease energy based on metabolism cost
+        energy -= metabolismCost * (speed / 3) * Time.deltaTime;
+        thirst -= metabolismCost * (speed / 3) * Time.deltaTime;
+        Act();
+        reproductionNeed += metabolismCost * Time.deltaTime;
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == foodTag)
+        {
+            energy += 50;
+            other.gameObject.tag = "Untagged";
+        }
+        if(other.gameObject.tag == waterTag)
+        {
+            thirst+= 50;
+            other.gameObject.tag = "Untagged";
+        }
+
+
+        Destroy(other.gameObject, 5.0f);
+    }
+
+
+    public void Act()
+    {
+
+        if (distFood < visionRange && distWater < visionRange)
+        {
+            if (energy <= thirst)
+            {
+                transform.position = Vector3.Lerp(transform.position, foodGameObject.transform.position, speed * Time.deltaTime);
+                transform.LookAt(foodGameObject.transform.position);
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, waterGameObject.transform.position, speed * Time.deltaTime);
+                transform.LookAt(waterGameObject.transform.position);
+            }
+        }
+        if (distFood < visionRange)
+        {
+            transform.position = Vector3.Lerp(transform.position, foodGameObject.transform.position, speed * Time.deltaTime);
+            transform.LookAt(foodGameObject.transform.position);
+        }
+        else if (distWater < visionRange)
+        {
+            transform.position = Vector3.Lerp(transform.position, waterGameObject.transform.position, speed * Time.deltaTime);
+            transform.LookAt(waterGameObject.transform.position);
+        }
+        else if(distPrey < visionRange)
+        {
+            transform.position = Vector3.Lerp(transform.position, preyGameObject.transform.position, speed * Time.deltaTime);
+            transform.LookAt(preyGameObject.transform.position);
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, desiredPos, speed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, desiredPos) <= 1f)
+            {
+                desiredPos = new Vector3(transform.position.x + Random.Range(-moveDir, moveDir), gameObject.transform.position.y, transform.position.z + Random.Range(-moveDir, moveDir));
+                transform.LookAt(desiredPos);
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(gameObject.transform.position, visionRange);
+        Gizmos.color = Color.red;
+    }
+
+    public void findClosestFood()
+    {
+        distanceToClosestFood = Mathf.Infinity;
+        GameObject[] allFoodGameObjects = GameObject.FindGameObjectsWithTag(foodTag);
+        float distanceToFood;
+        if (allFoodGameObjects.Length == 0)
+        {
+            distFood = Mathf.Infinity;
+            return;
+        }
+
+        foreach (GameObject food in allFoodGameObjects)
+        {
+            distanceToFood = (food.transform.position - transform.position).sqrMagnitude;
+            if (distanceToFood < distanceToClosestFood)
+            {
+                distanceToClosestFood = distanceToFood;
+                foodGameObject = food;
+                distFood = Vector3.Distance(gameObject.transform.position, food.transform.position);
+            }
+        }
+    }
+
+    public void findClosestWater()
+    {
+        distanceToClosestWater = Mathf.Infinity;
+        GameObject[] allWaterGameObjects = GameObject.FindGameObjectsWithTag(waterTag);
+        float distanceToWater;
+        if (allWaterGameObjects.Length == 0)
+        {
+            distWater = Mathf.Infinity;
+            return;
+        }
+
+        foreach (GameObject water in allWaterGameObjects)
+        {
+            distanceToWater = (water.transform.position - transform.position).sqrMagnitude;
+            if (distanceToWater < distanceToClosestWater)
+            {
+                distanceToClosestWater = distanceToWater;
+                waterGameObject = water;
+                distWater = Vector3.Distance(gameObject.transform.position, water.transform.position);
+
+            }
+        }
+    }
+
+    public void findClosestPrey()
+    {
+        distanceToClosestPrey = Mathf.Infinity;
+        GameObject[] allPreyGameObjects = GameObject.FindGameObjectsWithTag(preyTag);
+        float distanceToPrey;
+        if (allPreyGameObjects.Length == 1 || allPreyGameObjects.Length == 0)
+        {
+            distPrey = Mathf.Infinity;
+            return;
+        }
+
+        foreach (GameObject prey in allPreyGameObjects)
+        {
+            if(prey != gameObject)
+            {
+                distanceToPrey = (prey.transform.position - transform.position).sqrMagnitude;
+                if (distanceToPrey < distanceToClosestPrey)
+                {
+                    distanceToClosestPrey = distanceToPrey;
+                    preyGameObject = prey;
+                    distPrey = Vector3.Distance(gameObject.transform.position, prey.transform.position);
+
+                }
+            }
+
+        }
+    }
+
+}
